@@ -27,6 +27,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+
+localStorage.setItem("carritoDeCompras", JSON.stringify(baseDeDatos));
+
+
+//Sesión
+
+let usuario;
+
+let usuarioStorage = localStorage.getItem("usuario");
+
+if (usuarioStorage) {
+    usuario = usuarioStorage;
+    let mensaje = `Bienvenido ${usuario}`;
+    Swal.fire(mensaje);
+} else {
+    usuario = prompt("Ingresa tu usuario");
+    localStorage.setItem("usuario", usuario)
+    Swal.fire('Bienvenido por primera vez')
+    
+} 
+
+//Fin Sesión
+
+
     let carrito = [];
     const divisa = '$';
     const DOMitems = document.querySelector('#items');
@@ -61,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
             miNodoBoton.classList.add('btn', 'btn-primary');
             miNodoBoton.textContent = 'Agregar';
             miNodoBoton.setAttribute('marcador', info.id);
-            miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
+            miNodoBoton.addEventListener('click', anadirProductoAlCarrito);
+
             
             miNodoCardBody.appendChild(miNodoImagen);
             miNodoCardBody.appendChild(miNodoTitle);
@@ -73,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function anyadirProductoAlCarrito(evento) {
+    function anadirProductoAlCarrito(evento) {
         carrito.push(evento.target.getAttribute('marcador'))
         renderizarCarrito();
     }
@@ -134,3 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarProductos();
     renderizarCarrito();
   });
+
+
+
+
+
